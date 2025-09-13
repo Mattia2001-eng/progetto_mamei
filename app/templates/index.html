@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% set title = 'Benvenuto' %}
+{% set subtitle = 'Gestione e analisi dei dati Empatica E4 in tempo reale' %}
+{% block content %}
+<div class="page-wrap">
+  <div class="row g-3">
+    <div class="col-lg-7">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="mb-2">Cosa puoi fare</h5>
+          <ul class="mb-0">
+            <li>Accedere con il tuo account</li>
+            <li>Visualizzare cruscotti e grafici delle grandezze monitorate</li>
+            <li>Gestire utenti e feeder CSV dal pannello Admin</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="mb-2">Accedi</h5>
+          <p class="text-muted">Admin predefinito: <code>admin / admin123</code></p>
+          <a href="/login" class="btn btn-primary">Vai al login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% set title = 'Stato Email' %}
+{% set subtitle = 'Coda e ultimo invio' %}
+{% block content %}
+<div class="page-wrap">
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb"><li class="breadcrumb-item"><a href="/admin">Admin</a></li><li class="breadcrumb-item active">Stato email</li></ol>
+  </nav>
+  <div class="card"><div class="card-body">
+    <p><strong>Ultimo invio:</strong> {{ email_status.last_sent or '-' }}</p>
+    <p class="mb-0"><strong>Coda:</strong> {{ email_status.queue_size or 0 }}</p>
+  </div></div>
+</div>
+{% endblock %}

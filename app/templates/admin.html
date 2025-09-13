@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% set title = 'Amministrazione' %}
+{% set subtitle = 'Gestione utenti, feeder ed esportazioni' %}
+{% block content %}
+<div class="page-wrap">
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item active">Admin</li></ol>
+  </nav>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header"><strong>Utenti</strong></div>
+        <div class="card-body">
+          <a class="btn btn-success" href="/admin/new_user">➕ Crea nuovo utente</a>
+          <a class="btn btn-outline-secondary ms-2" href="/admin/sync_users">🔄 Sincronizza utenti su Firestore</a>
+          <hr>
+          <form method="post" action="/admin/delete_user" class="row g-2">
+            <div class="col-8"><label class="visually-hidden">Username</label><input class="form-control" type="text" name="username" placeholder="username da eliminare"></div>
+            <div class="col-4"><button class="btn btn-danger w-100" type="submit">Elimina</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header"><strong>Feeder CSV</strong></div>
+        <div class="card-body">
+          <form method="post" action="/admin/start_feeder" class="d-inline">
+            <button class="btn btn-primary" type="submit">▶️ Avvia feeder</button>
+          </form>
+          <form method="post" action="/admin/stop_feeder" class="d-inline ms-2">
+            <button class="btn btn-secondary" type="submit">⏹️ Stop</button>
+          </form>
+          <p class="mt-2 text-muted mb-0">Legge cartelle in <code>data_samples/&lt;username&gt;/</code>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header"><strong>Esportazioni & Email</strong></div>
+        <div class="card-body">
+          <a class="btn btn-outline-primary" href="/admin/email_status">📧 Stato email</a>
+          <form method="post" action="/admin/email_csv_all" class="d-inline ms-2">
+            <button class="btn btn-outline-success" type="submit">Invia CSV a tutti</button>
+          </form>
+          <form method="post" action="/admin/email_csv_user" class="row g-2 mt-2">
+            <div class="col-8"><input class="form-control" type="text" name="username" placeholder="username"></div>
+            <div class="col-4"><button class="btn btn-outline-primary w-100" type="submit">Invia CSV a utente</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header"><strong>Notifiche</strong></div>
+        <div class="card-body">
+          <form method="post" action="/admin/email_unblock" class="row g-2 mb-2">
+            <div class="col-8"><input class="form-control" type="email" name="email" placeholder="email da sbloccare"></div>
+            <div class="col-4"><button class="btn btn-outline-warning w-100" type="submit">Sblocca</button></div>
+          </form>
+          <form method="post" action="/admin/notify_user" class="row g-2">
+            <div class="col-md-4"><input class="form-control" name="username" placeholder="username"></div>
+            <div class="col-md-8"><input class="form-control" name="message" placeholder="Testo messaggio"></div>
+            <div class="col-12 mt-2"><button class="btn btn-primary" type="submit">Invia notifica</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header"><strong>Diagnostica Firestore</strong></div>
+        <div class="card-body">
+          <a class="btn btn-outline-primary" href="/admin/fs_status">Verifica connessione</a>
+          <a class="btn btn-outline-success ms-2" href="/admin/fs_test_write">Scrittura di test</a>
+          <p class="text-muted mt-2 mb-0">Usa questi pulsanti per capire se le credenziali e il project ID sono corretti.</p>
+        </div>
+      </div>
+    </div>
+    
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% set title = 'Nuovo utente' %}
+{% set subtitle = 'Crea un account di accesso' %}
+{% block content %}
+<div class="page-wrap">
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb"><li class="breadcrumb-item"><a href="/admin">Admin</a></li><li class="breadcrumb-item active">Nuovo utente</li></ol>
+  </nav>
+
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+      <div class="card"><div class="card-body">
+        <form method="POST" action="/admin/new_user" novalidate>
+          <div class="mb-3"><label class="form-label">Username *</label><input type="text" class="form-control" name="username" required></div>
+          <div class="mb-3"><label class="form-label">Email *</label><input type="email" class="form-control" name="email" required></div>
+          <div class="mb-3"><label class="form-label">Password *</label><input type="password" class="form-control" name="password" required minlength="6"></div>
+          <div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="is_admin" name="is_admin"><label class="form-check-label" for="is_admin">Amministratore</label></div>
+          <div class="d-grid gap-2"><button type="submit" class="btn btn-success">Crea Utente</button><a href="/admin" class="btn btn-secondary">Annulla</a></div>
+        </form>
+      </div></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% set title = 'Esportazione CSV' %}
+{% set subtitle = 'Cosa fa il pulsante “Esporta CSV”' %}
+{% block content %}
+<div class="page-wrap">
+  <div class="card"><div class="card-body">
+    <p>Il pulsante <strong>Esporta CSV</strong> scarica le rilevazioni dell’utente selezionato dal database (filtrate per sensore e/or periodo se passi parametri), così puoi analizzarle in Excel o altri strumenti.</p>
+    <ul>
+      <li>Endpoint utilizzato: <code>/admin/export_user_csv?username=&lt;nome&gt;</code></li>
+      <li>Formato: CSV con colonne <code>timestamp,value,sensor,username</code></li>
+      <li>Nota: il download avviene direttamente dal browser.</li>
+    </ul>
+  </div></div>
+</div>
+{% endblock %}

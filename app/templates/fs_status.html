@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% set title = 'Stato Firestore' %}
+{% set subtitle = 'Connessione e configurazione attuale' %}
+{% block content %}
+<div class="page-wrap">
+  <div class="card"><div class="card-body">
+    <p><strong>Messaggio:</strong> {{ message }}</p>
+    <p><strong>Project rilevato:</strong> {{ project or '-' }}</p>
+    <p><strong>File credenziali:</strong> {{ cred_path or '-' }}</p>
+    <p class="text-muted mb-0">Se vedi un errore, verifica che il file JSON esista e appartenga al progetto atteso.</p>
+  </div></div>
+</div>
+{% endblock %}

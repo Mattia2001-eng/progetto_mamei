@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% set title = 'Analytics' %}
+{% set subtitle = 'Statistiche e grafici per utente' %}
+{% block content %}
+<div class="page-wrap">
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb"><li class="breadcrumb-item"><a href="/">Home</a></li><li class="breadcrumb-item active">Analytics</li></ol>
+  </nav>
+
+  <div class="card">
+    <div class="card-header"><strong>Filtri</strong></div>
+    <div class="card-body">
+      <form method="get" action="/analytics" class="row g-2">
+        <div class="col-md-5">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-control" name="user_id" value="{{ target_username or '' }}" placeholder="es. alice">
+        </div>
+        <div class="col-md-3 align-self-end">
+          <button class="btn btn-primary w-100" type="submit">Applica</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header"><strong>Statistiche sintetiche (ultimi 7 giorni)</strong></div>
+    <div class="card-body">
+      <div class="row g-3 text-center kpi">
+        <div class="col-6 col-md-3"><h2>{{ stats_avg.hr if stats_avg else '--' }}</h2><small>HR media</small></div>
+        <div class="col-6 col-md-3"><h2>{{ stats_avg.temp if stats_avg else '--' }}</h2><small>Temp media</small></div>
+        <div class="col-6 col-md-3"><h2>{{ stats_avg.eda if stats_avg else '--' }}</h2><small>EDA media</small></div>
+        <div class="col-6 col-md-3"><h2>{{ stats_total or 0 }}</h2><small>Rilevazioni</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header"><strong>Grafici</strong></div>
+    <div class="card-body">
+      {% for s in ['hr','temp','eda','bvp','acc','ibi'] %}
+        <div class="mb-3">
+          <img class="plot" src="/plot/{{ s }}/{{ target_username }}.png?days={{ days }}" alt="{{ s }} plot">
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-header"><strong>Legenda grafico</strong></div>
+  <div class="card-body small text-muted">
+    <ul class="mb-0">
+      <li><strong>Valori grezzi</strong>: serie originale.</li>
+      <li><strong>Media mobile (N)</strong>: smussamento su N punti.</li>
+      <li><strong>Soglia</strong>: linea orizzontale (limite) con unità del sensore.</li>
+      <li><strong>Intervallo</strong>: fascia grigia con il periodo selezionato ({{ days }} giorni).</li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="card mt-3">
+  <div class="card-header"><strong>Statistiche periodo selezionato ({{ days }} giorni)</strong></div>
+  <div class="card-body">
+    {% if stats_window %}
+    <div class="table-responsive">
+      <table class="table table-sm mb-0">
+        <thead><tr><th>Sensore</th><th>Media</th><th>Min</th><th>Max</th><th>N</th></tr></thead>
+        <tbody>
+        {% for s,vals in stats_window.items() %}
+          <tr>
+            <td>{{ s|upper }}</td>
+            <td>{{ '%.2f'|format(vals.avg) if vals.avg is not none else '-' }}</td>
+            <td>{{ '%.2f'|format(vals.min) if vals.min is not none else '-' }}</td>
+            <td>{{ '%.2f'|format(vals.max) if vals.max is not none else '-' }}</td>
+            <td>{{ vals.n }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <span class="text-muted">Nessun dato nel periodo selezionato.</span>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
+<div class="page-wrap mt-3">
+  <div class="row g-3">
+    <div class="col-lg-6">
+      <div class="card h-100"><div class="card-header"><strong>Statistiche (ultimi 7 giorni)</strong></div>
+      <div class="card-body">
+        <div class="row text-center kpi">
+          <div class="col-6 col-md-3"><h2>{{ stats_week.hr if stats_week else '--' }}</h2><small>HR</small></div>
+          <div class="col-6 col-md-3"><h2>{{ stats_week.temp if stats_week else '--' }}</h2><small>Temp</small></div>
+          <div class="col-6 col-md-3"><h2>{{ stats_week.eda if stats_week else '--' }}</h2><small>EDA</small></div>
+          <div class="col-6 col-md-3"><h2>{{ total_week or 0 }}</h2><small>Rilevazioni</small></div>
+        </div>
+      </div></div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card h-100"><div class="card-header"><strong>Statistiche (ultimi 30 giorni)</strong></div>
+      <div class="card-body">
+        <div class="row text-center kpi">
+          <div class="col-6 col-md-3"><h2>{{ stats_month.hr if stats_month else '--' }}</h2><small>HR</small></div>
+          <div class="col-6 col-md-3"><h2>{{ stats_month.temp if stats_month else '--' }}</h2><small>Temp</small></div>
+          <div class="col-6 col-md-3"><h2>{{ stats_month.eda if stats_month else '--' }}</h2><small>EDA</small></div>
+          <div class="col-6 col-md-3"><h2>{{ total_month or 0 }}</h2><small>Rilevazioni</small></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
