@@ -1,7 +1,9 @@
 import os
 import time
 import threading
-
+import json
+from google.cloud import firestore
+from google.oauth2 import service_account
 import config
 
 # Path & cred
@@ -18,13 +20,22 @@ _fs_client = None
 _fs_mode = None  # "gcf" (google-cloud-firestore) oppure "admin" (firebase_admin)
 
 
-def _abs_credentials_path():
-    cred_path = config.FIRESTORE_CREDENTIALS
-    if not os.path.isabs(cred_path):
-        cred_path = os.path.abspath(cred_path)
-    if not os.path.exists(cred_path):
-        raise FileNotFoundError(f'Credentials file not found: {cred_path}')
-    return cred_path
+def get_credentials():
+    """Get Google credentials from environment variable or local file"""
+    if os.environ.get('GOOGLE_CREDENTIALS'):
+        # Cloud: usa la variabile d'ambiente
+        credentials_info = json.loads(os.environ['GOOGLE_CREDENTIALS'])
+        credentials = service_account.Credentials.from_service_account_info(credentials_info)
+        return credentials
+    else:
+        # Locale: usa il file
+        credentials_path = os.path.join(os.path.dirname(__file__), "..", "credentials.json")
+        credentials = service_account.Credentials.from_service_account_file(credentials_path)
+        return credentials
+
+# Inizializza Firestore con le credenziali
+credentials = get_credentials()
+db = firestore.Client(credentials=credentials, project="strong-charge-465917-k4")
 
 
 def _init_client():
