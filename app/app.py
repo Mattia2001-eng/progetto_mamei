@@ -625,6 +625,8 @@ def api_user_data(username):
 # --------------------------------------------------------------------------------------
 # Main
 # --------------------------------------------------------------------------------------
+# Alla fine del file app/app.py, assicurati che ci sia:
 if __name__ == '__main__':
-    print('[START] http://localhost:5000')
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
