@@ -9,13 +9,13 @@
 
   <div class="row g-3 text-center kpi">
     <div class="col-6 col-md-3"><div class="card"><div class="card-body">
-      <h2>{{ stats_avg.hr if stats_avg and stats_avg.get('hr') else '--' }}</h2><small>HR medio (bpm)- frequenza cardiaca</small>
+      <h2>{{ stats_avg.hr if stats_avg and stats_avg.get('hr') else '--' }}</h2><small>HR medio (bpm)</small>
     </div></div></div>
     <div class="col-6 col-md-3"><div class="card"><div class="card-body">
-      <h2>{{ stats_avg.temp if stats_avg and stats_avg.get('temp') else '--' }}</h2><small>Skin Temp (°C)- temperatura cutanea</small>
+      <h2>{{ stats_avg.temp if stats_avg and stats_avg.get('temp') else '--' }}</h2><small>Skin Temp (°C)</small>
     </div></div></div>
     <div class="col-6 col-md-3"><div class="card"><div class="card-body">
-      <h2>{{ stats_avg.eda if stats_avg and stats_avg.get('eda') else '--' }}</h2><small>EDA media (μS)- conduttanza cutanea</small>
+      <h2>{{ stats_avg.eda if stats_avg and stats_avg.get('eda') else '--' }}</h2><small>EDA media (μS)</small>
     </div></div></div>
     <div class="col-6 col-md-3"><div class="card"><div class="card-body">
       <h2>{{ stats_total or 0 }}</h2><small>Rilevazioni</small>
@@ -84,7 +84,21 @@
       <li><strong>Valori</strong>: serie originale.</li>
     </ul>
   </div>
+
+
+  <div class="card-header"><strong>Definizioni</strong></div>
+  <div class="card-body small text-muted">
+    <ul class="mb-0">
+      <li><strong>HR</strong>: frequenza cardiaca</li>
+      <li><strong>Temp</strong>: temperatura cutanea</li>
+      <li><strong>EDA</strong>: conduttanza cutanea</li>
+      <li><strong>BVP</strong>: volume polso sanguigno</li>
+      <li><strong>IBI</strong>: intervalli battito cardiaco</li>
+      <li><strong>ACC</strong>: accelerazione movimento</li>
+    </ul>
+  </div>
 </div>
+
 
 
 <div class="card mt-3">
