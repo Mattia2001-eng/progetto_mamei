@@ -9,13 +9,13 @@
 
   <div class="row g-3 text-center kpi">
     <div class="col-6 col-md-3"><div class="card"><div class="card-body">
-      <h2>{{ stats_avg.hr if stats_avg and stats_avg.get('hr') else '--' }}</h2><small>HR medio (bpm)</small>
+      <h2>{{ stats_avg.hr if stats_avg and stats_avg.get('hr') else '--' }}</h2><small>HR medio (bpm)- frequenza cardiaca</small>
     </div></div></div>
     <div class="col-6 col-md-3"><div class="card"><div class="card-body">
-      <h2>{{ stats_avg.temp if stats_avg and stats_avg.get('temp') else '--' }}</h2><small>Skin Temp (°C)</small>
+      <h2>{{ stats_avg.temp if stats_avg and stats_avg.get('temp') else '--' }}</h2><small>Skin Temp (°C)- temperatura cutanea</small>
     </div></div></div>
     <div class="col-6 col-md-3"><div class="card"><div class="card-body">
-      <h2>{{ stats_avg.eda if stats_avg and stats_avg.get('eda') else '--' }}</h2><small>EDA media (μS)</small>
+      <h2>{{ stats_avg.eda if stats_avg and stats_avg.get('eda') else '--' }}</h2><small>EDA media (μS)- conduttanza cutanea</small>
     </div></div></div>
     <div class="col-6 col-md-3"><div class="card"><div class="card-body">
       <h2>{{ stats_total or 0 }}</h2><small>Rilevazioni</small>
